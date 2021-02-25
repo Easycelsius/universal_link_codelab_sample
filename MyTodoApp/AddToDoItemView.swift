@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AddToDoItemView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var viewContext
     
     @State private var content: String = ""
     @State private var errorShowing: Bool = false
@@ -27,10 +27,10 @@ struct AddToDoItemView: View {
                         .cornerRadius(9)
                     Button(action: {
                         if self.content != ""{
-                            let todo = ToDo(context: self.managedObjectContext)
+                            let todo = ToDo(context: self.viewContext)
                             todo.content = self.content
                             do {
-                                try self.managedObjectContext.save()
+                                try self.viewContext.save()
                             }catch{
                                 print(error)
                             }
